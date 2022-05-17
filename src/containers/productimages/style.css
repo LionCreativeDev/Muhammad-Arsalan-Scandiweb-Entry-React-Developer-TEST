@@ -1,0 +1,29 @@
+.mini-image-holder {
+    max-height: 450px;
+    overflow: hidden;
+    padding-right: 5px;
+}
+
+.mini-image-holder:hover {
+    overflow-y: scroll;
+    padding-right: 0px;
+  }
+
+.mini-image-holder::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.mini-image-holder::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.mini-image-holder::-webkit-scrollbar-thumb {
+    background: #ddd;
+}
+
+/* Handle on hover */
+.mini-image-holder::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}

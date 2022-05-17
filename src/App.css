@@ -189,20 +189,22 @@ nav ul>li {
 
 nav ul>li.active {
   border-bottom: 2px solid #5aee87;
+  cursor: pointer;
 }
 
-.active>a {
+.active > .menu-item {
   color: #5aee87;
 }
 
-nav ul li a {
+nav ul li .menu-item {
   color: #000;
   text-decoration: none;
 }
 
-nav ul li a:hover {
+nav ul li .menu-item:hover {
   color: #5aee87;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .logo {
@@ -211,6 +213,7 @@ nav ul li a:hover {
 
 .currency {
   font-weight: 500;
+  padding-right: 5px;
 }
 
 .chevron-down {

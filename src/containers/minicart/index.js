@@ -1,7 +1,20 @@
 import React, { Component } from 'react'
 import "./cart.css";
 
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+function withParams(Component) {
+    return props => <Component
+        {...props}
+        location={useLocation()}
+        navigate={useNavigate()}
+        params={useParams()} />;
+}
+
 class MiniCart extends Component {
+    // componentDidMount(){
+    //     console.log(this.props.location);
+    // }
     render() {
         return (
             <li style={{ margin: 0, padding: 0 }}>
@@ -119,7 +132,7 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
                                     <label>$200</label>
                                 </div>
                                 <div className="item-checkout">
-                                    <button className="btn-secondary">VIEW BAG</button>
+                                    <button className="btn-secondary" onClick={()=> this.props.location.pathname !== "/cart" && this.props.navigate(`/cart`)} >VIEW BAG</button>
                                     <button className="btn-primary">CHECK OUT</button>
                                 </div>
                             </div>
@@ -131,4 +144,4 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
     }
 }
 
-export default MiniCart;
+export default withParams(MiniCart);

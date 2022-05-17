@@ -13,7 +13,7 @@ class Cart extends Component {
                         <PageHeading text={"CART"} />
                         <CartItems />
                     </div>
-                    <div class="loading"></div>
+                    <div className="loading"></div>
                 </div>
             </>
         )
