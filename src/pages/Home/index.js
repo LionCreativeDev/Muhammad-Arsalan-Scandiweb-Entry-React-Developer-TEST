@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import Header from '../../containers/header';
+//import Header from '../../containers/header';
 import PageHeading from '../../containers/pageheading';
 import ProductList from '../../containers/productList';
+
+import { connect } from "react-redux";//to connect with redux store
+import { setSelectedCategory } from "../../store/action";
 
 import {
     ApolloClient,
@@ -23,11 +26,11 @@ class Home extends Component {
             products: []
         }
     }
-    fecthProducts() {
+    fecthProducts(category) {
         client.query({
             query: gql`
             query GetProductsInAllCategory {
-              category(input: {title:"all"}) {
+              category(input: {title:"${category !== undefined ? category : "all"}"}) {
                 name
                 products {
                   id
@@ -69,13 +72,27 @@ class Home extends Component {
         });
     }
     componentDidMount() {
-        this.fecthProducts();
+        if (this.props.selectedCategory === "all" || this.props.selectedCategory === "")
+            this.fecthProducts("all");
+        else
+            this.fecthProducts(this.props.selectedCategory);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        // if (prevState !== this.state) {
+        //     //console.log("this.state", this.state);
+        // }
+
+        if (prevProps !== this.props) {
+            //console.log("this.props", this.props);
+            this.fecthProducts(this.props.selectedCategory);
+            //this.setState({ selectedCategory: this.props.selectedCategory });
+        }
     }
     render() {
         return (
             <>
                 <ApolloProvider client={client}>
-                    <Header />
+                    {/* <Header /> */}
                     <div style={{ position: "relative", display: "block", paddingBottom: "100px" }}>
                         <div className="container">
                             <PageHeading text={"Category Name"} />
@@ -89,4 +106,11 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProp = (state) => ({
+    selectedCategory: state.selectedCategory
+})
+// const mapDispatchToProp = (dispatch) => ({
+//     setSelectedCategory : (selectedCategory)=> dispatch(setSelectedCategory(selectedCategory))
+// })
+
+export default connect(mapStateToProp, null)(Home);

@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import "./card.css"
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import { connect } from "react-redux";//to connect with redux store
+//import { setSelectedCurrency } from "../../store/action";
+
 function withParams(Component) {
     return props => <Component
         {...props}
@@ -14,19 +17,39 @@ class ProductList extends Component {
     //constructor
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            products: [],
+            selectedCurrency: {symbol: "$", label: "USD"}
+        }
     }
     componentDidMount() {
         //console.log(this.props)
     }
-    componentDidUpdate(prevProps) {
-        if (this.props.products !== prevProps.products) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-        {
-            console.log(this.props.products)
-        }
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.products !== prevProps.products) 
+    //     {
+    //         console.log(this.props.products)
+    //     }
+    // }
+    componentDidUpdate(prevProps, prevState) {
+        
+        // console.log("this.state", this.state);
+        // console.log("prevState", prevState);
+
+        // console.log("prevProps", prevProps);
+        // console.log("this.props", this.props);
+        
+        if(prevProps.products !== this.props.products)
+            this.setState({ products: this.props.products })
+        
+        if(prevProps.selectedCurrency !== this.props.selectedCurrency)
+            this.setState({ selectedCurrency: this.props.selectedCurrency })
+
+        // if (prevProps.selectedCurrency !== this.props.selectedCurrency)
+        //     this.setState({ selectedCurrency: this.props.selectedCurrency });
     }
     render() {
-        const { products } = this.props;
+        const { products, selectedCurrency } = this.state;
         const totalProducts = products.length;
 
         if (totalProducts === 0)
@@ -36,6 +59,10 @@ class ProductList extends Component {
             <div className="row">
                 {products.map((thisproduct, index) => {
                     const { id, name, brand, prices, category, gallery, inStock } = thisproduct;
+                    const priceInSelectedCurrency = prices.filter(price => price.currency.label === selectedCurrency.label);
+                    const amount = priceInSelectedCurrency[0].amount
+                    const symbol = priceInSelectedCurrency[0]["currency"].symbol;
+                    
                     //console.log("thisproduct", thisproduct);
                     return (<div key={index} className="col-sm-12 col-md-4 col-lg-4 mb-5" onClick={()=>{inStock && this.props.navigate(`/productdetail/${id}`)}}>
                         <div className={inStock ? "product-card" : "out-of-stock"}>
@@ -60,7 +87,7 @@ class ProductList extends Component {
                                 </div>
                             </div>
                             <p className="product-name">{`${brand} ${name}`}</p>
-                            <p className="price">{`${prices[0]["currency"].symbol} ${prices[0].amount}`}</p>
+                            <p className="price">{`${symbol} ${amount}`}</p>
 
                             <div className="overlay">
                                 <div className="overlay-text">OUT OF STOCK</div>
@@ -246,7 +273,14 @@ class ProductList extends Component {
     }
 }
 
-export default withParams(ProductList);
+const mapStateToProp = (state) => ({
+    selectedCurrency: state.selectedCurrency
+})
+// const mapDispatchToProp = (dispatch) => ({
+//     setSelectedCurrency: (selectedCurrency) => dispatch(setSelectedCurrency(selectedCurrency))
+// })
+
+export default connect(mapStateToProp, null)(withParams(ProductList));
 
 // productList.js
 

@@ -1,0 +1,66 @@
+.toast {
+    position: fixed;
+    bottom: 50px;
+    right: 100px;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.toast-body-holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    padding: 10px;
+}
+
+.toast-body {
+    font-family: 'Raleway', sans-serif;
+}
+
+.btn-close {
+    background-color: transparent;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    font-weight: normal;
+    font-family: monospace;
+    padding: 0 15px;
+}
+
+.snack-info {
+    /*background-color: #00bcd4;*/
+    color: #084298;
+    background-color: #cfe2ff;
+    border-color: #b6d4fe;
+}
+
+.snack-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.snack-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+.snack-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+}
+
+@media only screen and (max-width: 600px) {
+    .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 10px;
+        border-radius: 5px;
+        background-color: green;
+        opacity: 0.8;
+    }
+}

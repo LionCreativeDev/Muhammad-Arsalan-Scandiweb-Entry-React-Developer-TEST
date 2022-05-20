@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../../containers/header';
+//import Header from '../../containers/header';
 import ProductDetail from '../../containers/productdetail';
 import ProductImages from '../../containers/productimages';
 
@@ -86,7 +86,7 @@ class ProductDetails extends Component {
 
         return (
             <>
-                <Header />
+                {/* <Header /> */}
                 <div style={{ position: "relative", display: "block" }}>
                     <div className="container">
                         <div className="row">

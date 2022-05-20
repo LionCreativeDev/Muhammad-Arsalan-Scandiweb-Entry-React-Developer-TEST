@@ -12,12 +12,51 @@ function withParams(Component) {
 }
 
 class MiniCart extends Component {
-    // componentDidMount(){
-    //     console.log(this.props.location);
-    // }
+    constructor(props) {
+        super(props)
+        this.state = {
+            cart: [],
+            minicartOpen: false
+        }
+        this.ref = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+    handleClickOutside(event) {
+        if (this.ref.current && !this.ref.current.contains(event.target)) {
+            this.props.onClickOutside && this.props.onClickOutside();
+            //console.log("clicked outside");
+            if (this.state.minicartOpen)
+                this.setState({ minicartOpen: false });
+        }
+        else {
+            const allowdClasses = ["cart-container", "item-summery", "cart-item", "item-Details", "item-brand", "item-name", "item-price", "size-holder", "item-sizes", "item-size", "item-size-selected", "color-holder", "item-colors", "item-color", "item-color-selected", "counter", "counter-control-minus", "counter-control-number", "counter-control-plus", "item-image-holder", "item-image", "cart-actions", "item-total"];
+            if (allowdClasses.includes(event.target.className))
+                this.setState({ minicartOpen: true })
+            else
+                this.setState({ minicartOpen: (this.state.minicartOpen ? false : true) })
+            //console.log("clicked inside");
+        }
+
+        // if(!this.state.minicartOpen)
+        //     document.getElementsByClassName("loading")[0].style.display = "block";
+        // else
+        //     document.getElementsByClassName("loading")[0].style.display = "none";
+    };
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutside, true);
+    }
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, true);
+    };
+    handleMiniCartClick() {
+        if (this.state.minicartOpen)
+            document.getElementsByClassName("loading")[0].style.display = "block";
+        else if (!this.state.minicartOpen)
+            document.getElementsByClassName("loading")[0].style.display = "none";
+    }
     render() {
         return (
-            <li style={{ margin: 0, padding: 0 }}>
+            <li ref={this.ref} style={{ margin: 0, padding: 0 }} onClick={() => { this.handleMiniCartClick() }}>
                 <div className="dropdown">
                     <div className="dropbtn">
                         <svg className="cart" version="1.0" xmlns="http://www.w3.org/2000/svg" width="24.000000pt"
@@ -38,7 +77,7 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
                         <span className="badge">2</span>
                     </div>
 
-                    <div className="dropdown-content">
+                    <div className={`dropdown-content ${this.state.minicartOpen ? "show" : "hide"}`}>
                         <div className="cart-container">
                             <div className="item-summery">
                                 <span><label>My Bag</label> 3 items</span>
@@ -132,7 +171,7 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
                                     <label>$200</label>
                                 </div>
                                 <div className="item-checkout">
-                                    <button className="btn-secondary" onClick={()=> this.props.location.pathname !== "/cart" && this.props.navigate(`/cart`)} >VIEW BAG</button>
+                                    <button className="btn-secondary" onClick={() => this.props.location.pathname !== "/cart" && this.props.navigate(`/cart`)} >VIEW BAG</button>
                                     <button className="btn-primary">CHECK OUT</button>
                                 </div>
                             </div>

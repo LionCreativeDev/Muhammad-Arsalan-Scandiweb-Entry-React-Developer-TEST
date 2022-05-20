@@ -1,17 +1,12 @@
 import React, { Component } from 'react'
 
-// {
-//     currencies{
-//       label
-//       symbol
-//     }
-// }
+import { connect } from "react-redux";//to connect with redux store
+import { setSelectedCurrency } from "../../store/action";
 
 import {
     ApolloClient,
     InMemoryCache,
     ApolloProvider,
-    //useQuery,
     gql
 } from "@apollo/client";
 
@@ -24,9 +19,21 @@ class Currencies extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            Currencies: []
+            Currencies: [],
+            currencySelectorOpen: false,
+            selectedCurrency: { symbol: "$", label: "USD" }
         }
+        this.ref = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
+    handleClickOutside(event) {
+        if (this.ref.current && !this.ref.current.contains(event.target)) {
+            this.props.onClickOutside && this.props.onClickOutside();
+            //console.log("clicked outside");
+            if (this.state.currencySelectorOpen)
+                this.setState({ currencySelectorOpen: false });
+        }
+    };
     fecthCurrencies() {
         client.query({
             query: gql`
@@ -41,7 +48,7 @@ class Currencies extends Component {
                 const { loading, error, data } = result;
                 // console.log("loading", loading);
                 // console.log("error", error);
-                // console.log("currencies", data);
+                //console.log("currencies", data);
                 if (data) {
                     this.setState({
                         Currencies: data["currencies"]
@@ -50,19 +57,34 @@ class Currencies extends Component {
             });
     }
     componentDidMount() {
-        this.fecthCurrencies();        
+        this.fecthCurrencies();
+        document.addEventListener('click', this.handleClickOutside, true);
+
+        if (localStorage.getItem("selectedCurrency") !== null) {
+            const saveSelectedCurrency = JSON.parse(localStorage.getItem("selectedCurrency"));
+            if (this.props.selectedCurrency.label !== saveSelectedCurrency.label && this.props.selectedCurrency.symbol !== saveSelectedCurrency.symbol)
+                this.props.setSelectedCurrency({ symbol: saveSelectedCurrency[0].symbol, label: saveSelectedCurrency[0].label })//console.log(saveSelectedCurrency);
+        }
     }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.selectedCurrency !== this.props.selectedCurrency)
+            this.setState({ selectedCurrency: this.props.selectedCurrency });
+    }
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, true);
+    };
     render() {
         const AllCurrencies = this.state.Currencies;
+        const { symbol } = this.state.selectedCurrency;
         //console.log("AllCurrencies", AllCurrencies);
 
         return (
             <ApolloProvider client={client}>
-                <li style={{ margin: 0, padding: 0 }}>
+                <li ref={this.ref} style={{ margin: 0, padding: 0 }} onClick={() => { this.setState({ currencySelectorOpen: (this.state.currencySelectorOpen ? false : true) }) }}>
                     <div className="currency-dropdown">
                         <div className="currency-dropbtn">
-                            <label className="currency">$</label>
-                            <svg className="chevron-down" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                            <label className="currency">{symbol}</label>
+                            <svg style={{ transform: (this.state.currencySelectorOpen ? "rotate(180deg)" : "rotate(0deg)") }} className="chevron-down" version="1.0" xmlns="http://www.w3.org/2000/svg"
                                 width="20.000000pt" height="20.000000pt" viewBox="0 0 20.000000 20.000000"
                                 preserveAspectRatio="xMidYMid meet">
 
@@ -74,9 +96,9 @@ class Currencies extends Component {
                             </svg>
                         </div>
 
-                        <div className="currency-dropdown-content">
+                        <div className={`currency-dropdown-content ${this.state.currencySelectorOpen ? "show" : "hide"}`}>
                             {AllCurrencies.map((currency, index) => {
-                                return (<label key={index} className="currency">{`${currency.symbol} ${currency.label}`}</label>)
+                                return (<label key={index} className="currency" onClick={() => { this.props.setSelectedCurrency(currency) }}>{`${currency.symbol} ${currency.label}`}</label>)
                             })}
                             {/* <label className="currency">$ USD</label>
                             <label className="currency">€ EUR</label>
@@ -89,4 +111,11 @@ class Currencies extends Component {
     }
 }
 
-export default Currencies;
+const mapStateToProp = (state) => ({
+    selectedCurrency: state.selectedCurrency
+})
+const mapDispatchToProp = (dispatch) => ({
+    setSelectedCurrency: (selectedCurrency) => dispatch(setSelectedCurrency(selectedCurrency))
+})
+
+export default connect(mapStateToProp, mapDispatchToProp)(Currencies);
