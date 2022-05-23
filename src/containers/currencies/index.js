@@ -78,7 +78,7 @@ class Currencies extends Component {
             <ApolloProvider client={client}>
                 <li ref={this.ref} style={{ margin: 0, padding: 0 }} onClick={() => { this.setState({ currencySelectorOpen: (this.state.currencySelectorOpen ? false : true) }) }}>
                     <div className="currency-dropdown">
-                        <div className="currency-dropbtn">
+                        <div className="currency-dropbtn medium-500">
                             <label className="currency">{symbol}</label>
                             <svg style={{ transform: (this.state.currencySelectorOpen ? "rotate(180deg)" : "rotate(0deg)") }} className="chevron-down" version="1.0" xmlns="http://www.w3.org/2000/svg"
                                 width="20.000000pt" height="20.000000pt" viewBox="0 0 20.000000 20.000000"
@@ -94,7 +94,7 @@ class Currencies extends Component {
 
                         <div className={`currency-dropdown-content ${this.state.currencySelectorOpen ? "show" : "hide"}`}>
                             {AllCurrencies.map((currency, index) => {
-                                return (<label key={index} className="currency" onClick={() => { this.props.setSelectedCurrency(currency) }}>{`${currency.symbol} ${currency.label}`}</label>)
+                                return (<label key={index} className="currency medium-500" onClick={() => { this.props.setSelectedCurrency(currency) }}>{`${currency.symbol} ${currency.label}`}</label>)
                             })}
                         </div>
                     </div>

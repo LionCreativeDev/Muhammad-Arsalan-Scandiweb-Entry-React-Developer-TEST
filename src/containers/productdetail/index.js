@@ -94,13 +94,13 @@ class ProductDetail extends Component {
             <div className="col-sm-12 col-md-4 col-lg-4 pdp">
                 <div className="product-Details">
 
-                    <p className="product-brand">{brand}</p>
-                    <p className="product-name">{name}</p>
+                    <p className="product-brand bold-700">{brand}</p>
+                    <p className="product-name medium-500">{name}</p>
                     {
                         attributes.map((attr, index) => {
                             if (attr.name === "Color") {
                                 return (<div key={index} className="color-holder">
-                                    <p style={{ color: "black", margin: "0 0 5px 0", fontWeight: "bold", fontFamily: "sans-serif" }}>{attr.name.toUpperCase()}:</p>
+                                    <p style={{ color: "black", margin: "0 0 0 0", fontSize: "14px", fontWeight: "800", fontFamily: "'Raleway', sans-serif" }}>{attr.name.toUpperCase()}:</p>
                                     <div className="product-colors">
                                         {attr.items.map((item, index) => {
                                             return (<div key={index} className={item.selected ? "product-color-selected" : "product-color"} style={{ backgroundColor: item.value }} onClick={() => this.handeSelection(attr.name, item.id)}></div>)
@@ -110,10 +110,10 @@ class ProductDetail extends Component {
                             }
                             else {
                                 return (<div key={index} className="attributes-holder">
-                                    <p style={{ color: "black", margin: "0 0 5px 0", fontWeight: "bold", fontFamily: "sans-serif" }}>{attr.name.toUpperCase()}:</p>
+                                    <p style={{ color: "black", margin: "0 0 0 0", fontSize: "14px", fontWeight: "800", fontFamily: "'Raleway', sans-serif" }}>{attr.name.toUpperCase()}:</p>
                                     <div className="attributes-attribute">
                                         {attr.items.map((item, index) => {
-                                            return (<div key={index} className={item.selected ? "attribute-value-selected" : "attribute-value"} onClick={() => this.handeSelection(attr.name, item.id)}>{item.value}</div>)
+                                            return (<div key={index} className={item.selected ? "attribute-value-selected medium-500" : "attribute-value medium-500"} onClick={() => this.handeSelection(attr.name, item.id)}>{item.value}</div>)
                                         })}
                                     </div>
                                 </div>)
@@ -122,16 +122,16 @@ class ProductDetail extends Component {
                     }
 
                     <div className="price-holder">
-                        <p style={{ color: "black", margin: "0 0 5px 0", fontWeight: "bold", fontFamily: "sans-serif" }}>PRICE:</p>
-                        <p className="product-price">{`${symbol} ${amount}`}</p>
+                        <p style={{ color: "black", margin: "0 0 5px 0", fontSize: "14px", fontWeight: "800", fontFamily: "'Raleway', sans-serif" }}>PRICE:</p>
+                        <p className="product-price semibold-600" style={{fontSize: "20px"}}>{`${symbol} ${amount}`}</p>
                     </div>
 
                     {inStock
-                        ? (<button className="btn-primary mb-3" style={{ fontFamily: "sans-serif" }} onClick={() => { this.handleAddToCart() }}>ADD TO CART</button>)
-                        : (<button className="btn-primary mb-3" style={{ fontFamily: "sans-serif" }} onClick={() => { this.handleAddToCart() }} disabled>ADD TO CART</button>)
+                        ? (<button className="btn-primary mb-3" style={{ fontFamily: "'Raleway', sans-serif", padding: "15px 30px" }} onClick={() => { this.handleAddToCart() }}>ADD TO CART</button>)
+                        : (<button className="btn-primary mb-3" style={{ fontFamily: "'Raleway', sans-serif", padding: "15px 30px" }} onClick={() => { this.handleAddToCart() }} disabled>ADD TO CART</button>)
                     }
 
-                    <p className="product-description" dangerouslySetInnerHTML={{ __html: description }}></p>
+                    <p className="product-description medium-500" dangerouslySetInnerHTML={{ __html: description }}></p>
                 </div>
             </div>
         )

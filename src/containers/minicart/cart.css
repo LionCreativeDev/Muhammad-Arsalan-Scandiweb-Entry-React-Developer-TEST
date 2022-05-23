@@ -218,14 +218,14 @@
     color: black;
     font-weight: bold;
     font-size: 22px;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
 }
 
 .product-Details .product-name {
     margin: 0 0 30px 0;
     color: black;
     font-size: 20px;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
     padding-top: 0;
 }
 
@@ -301,7 +301,7 @@
 }
 
 .color-holder {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .product-color {
@@ -334,7 +334,7 @@
 
 .product-description {
     font-size: 14px;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
 }
 
 /* Product Details Page CSS*/

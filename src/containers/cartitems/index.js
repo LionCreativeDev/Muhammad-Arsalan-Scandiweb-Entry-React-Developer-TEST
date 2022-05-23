@@ -85,9 +85,9 @@ class CartItems extends Component {
 
                                     return (<div key={index} className="main-cart-item">
                                         <div className="main-cart-item-Details">
-                                            <p className="main-cart-item-brand">{item.brand}</p>
-                                            <p className="main-cart-item-name">{item.name}</p>
-                                            <p className="main-cart-item-price">{`${symbol} ${amount}`}</p>
+                                            <p className="main-cart-item-brand bold-700">{item.brand}</p>
+                                            <p className="main-cart-item-name regular-400">{item.name}</p>
+                                            <p className="main-cart-item-price bold-700">{`${symbol}${amount}`}</p>
 
                                             {
                                                 item.attributes.map((attr, index) => {
@@ -119,9 +119,9 @@ class CartItems extends Component {
 
                                         <div className="main-cart-item-image-holder">
                                             <div className="main-cart-counter">
-                                                <div className="main-cart-counter-control-plus" onClick={() => { this.handleQuantity("plus", item) }}>+</div>
-                                                <div className="main-cart-counter-control-number">{item.quantity}</div>
-                                                <div className="main-cart-counter-control-minus" onClick={() => { this.handleQuantity("minus", item) }}>-</div>
+                                                <div className="main-cart-counter-control-plus regular-400" onClick={() => { this.handleQuantity("plus", item) }}>+</div>
+                                                <div className="main-cart-counter-control-number medium-500">{item.quantity}</div>
+                                                <div className="main-cart-counter-control-minus regular-400" onClick={() => { this.handleQuantity("minus", item) }}>-</div>
                                             </div>
                                             <ImageGallery item={item} />
                                         </div>
@@ -135,16 +135,16 @@ class CartItems extends Component {
 
                     <div className="main-cart-total">
                         <div className="p-holder">
-                            <p className="p-title">Tax {taxPercentage}%:</p>
-                            <p className="p-value">{symbol}{taxAmount.toFixed(2)}</p>
+                            <p className="p-title medium-500">Tax {taxPercentage}%:</p>
+                            <p className="p-value bold-700">{symbol}{taxAmount.toFixed(2)}</p>
                         </div>
                         <div className="p-holder">
-                            <p className="p-title">Quantity:</p>
-                            <p className="p-value">{totalQuantity}</p>
+                            <p className="p-title medium-500">Quantity:</p>
+                            <p className="p-value bold-700">{totalQuantity}</p>
                         </div>
                         <div className="p-holder">
-                            <p className="p-title">Total:</p>
-                            <p className="p-value">{symbol}{totalPrice.toFixed(2)}</p>
+                            <p className="p-title medium-500">Total:</p>
+                            <p className="p-value bold-700">{symbol}{totalPrice.toFixed(2)}</p>
                         </div>
                         <button className="btn-order">ORDER</button>
                     </div>

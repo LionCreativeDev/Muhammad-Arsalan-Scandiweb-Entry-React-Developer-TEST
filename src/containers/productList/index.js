@@ -88,11 +88,15 @@ class ProductList extends Component {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="product-name">{`${brand} ${name}`}</p>
-                                <p className="price">{`${symbol} ${amount}`}</p>
+                                <p className="product-name regular-400">{`${brand} ${name}`}</p>
+                                {/* <div className="price" style={{fontWeight: 600}}>
+                                    <div>{symbol}</div>
+                                    <div style={{marginTop: "1px"}}>{amount}</div>
+                                </div> */}
+                                <div className="price medium-500">{symbol}{amount}</div>
 
                                 <div className="overlay">
-                                    <div className="overlay-text">OUT OF STOCK</div>
+                                    <div className="overlay-text semibold-600">OUT OF STOCK</div>
                                 </div>
                             </div>
                         </div>)

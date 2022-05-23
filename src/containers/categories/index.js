@@ -87,9 +87,9 @@ class Categories extends Component {
                 <ul>
                     {AllCategories.map((category, index) => {
                         if (this.state.selectedCategory.toUpperCase() === category.name.toUpperCase())
-                            return (<li className="active" key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item">{category.name.toUpperCase()}</div></li>)
+                            return (<li className="active" key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item medium-500">{category.name.toUpperCase()}</div></li>)
                         else
-                            return (<li key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item">{category.name.toUpperCase()}</div></li>)
+                            return (<li key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item medium-500">{category.name.toUpperCase()}</div></li>)
                     })}
                 </ul>
             </ApolloProvider>

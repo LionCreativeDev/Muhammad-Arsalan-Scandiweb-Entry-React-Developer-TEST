@@ -22,7 +22,7 @@
 }
 
 .product-name {
-    color: grey;
+    color: black;
     margin-bottom: 0;
     padding-top: 10px;
 }
@@ -90,7 +90,7 @@
 }
 
 .overlay-text {
-    color: #000000;
+    color: #00000099;
     font-size: 20px;
 }
 

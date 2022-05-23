@@ -1,3 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700&display=swap');
+
+.extralight-200{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200!important;
+}
+
+.light-300{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300!important;
+}
+
+.regular-400{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400!important;
+}
+
+.medium-500{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500!important;
+}
+
+.semibold-600{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600!important;
+}
+
+.bold-700{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700!important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -721,7 +753,7 @@ nav ul li .menu-item:hover {
 } */
 
 .attributes-holder{
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .attributes-attribute{
@@ -732,9 +764,9 @@ nav ul li .menu-item:hover {
 .attribute-value{
   text-align: center;
   font-size: 12px;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   border: 1px solid black;
-  padding: 4px;
+  padding: 8px;
   margin-right: 5px;
   width: 40px;
   height: 20px;
@@ -748,7 +780,7 @@ nav ul li .menu-item:hover {
   border: 1px solid black;
   background-color: black;
   color: white;
-  padding: 4px;
+  padding: 8px;
   margin-right: 5px;
   width: 40px;
   height: 20px;
