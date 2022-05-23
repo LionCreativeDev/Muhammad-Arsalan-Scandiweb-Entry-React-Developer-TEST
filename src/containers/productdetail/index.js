@@ -127,8 +127,8 @@ class ProductDetail extends Component {
                     </div>
 
                     {inStock
-                        ? (<button className="btn-primary mb-3" style={{ fontFamily: "'Raleway', sans-serif", padding: "15px 30px" }} onClick={() => { this.handleAddToCart() }}>ADD TO CART</button>)
-                        : (<button className="btn-primary mb-3" style={{ fontFamily: "'Raleway', sans-serif", padding: "15px 30px" }} onClick={() => { this.handleAddToCart() }} disabled>ADD TO CART</button>)
+                        ? (<button className="btn-primary mb-3 bold-700" style={{ fontFamily: "'Raleway', sans-serif", padding: "15px 30px" }} onClick={() => { this.handleAddToCart() }}>ADD TO CART</button>)
+                        : (<button className="btn-primary mb-3 bold-700" style={{ fontFamily: "'Raleway', sans-serif", padding: "15px 30px" }} onClick={() => { this.handleAddToCart() }} disabled>ADD TO CART</button>)
                     }
 
                     <p className="product-description medium-500" dangerouslySetInnerHTML={{ __html: description }}></p>

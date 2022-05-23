@@ -786,3 +786,26 @@ nav ul li .menu-item:hover {
   height: 20px;
   box-sizing: content-box !important;
 }
+
+.mini-attribute-value-selected{
+  text-align: center;
+  font-size: 12px;
+  font-family: sans-serif;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  padding: 4px 8px;
+  margin-right: 5px;
+  height: 20px;
+  box-sizing: content-box !important;
+}
+
+.mini-attribute-value{
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid black;
+  padding: 4px 8px;
+  margin-right: 5px;
+  height: 20px;
+  box-sizing: content-box !important;
+}

@@ -131,7 +131,7 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
                     <div className={`dropdown-content ${this.state.minicartOpen ? "show" : "hide"}`}>
                         <div className="cart-container">
                             <div className="item-summery">
-                                <span><label>My Bag</label> {totalQuantity} items</span>
+                                <span><label>My Bag,</label> {totalQuantity} items</span>
                             </div>
 {this.state.cart.length > 0 ? (
                             <div className="cart-items">
@@ -143,16 +143,16 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
 
                                         return (<div key={index} className="cart-item">
                                             <div className="item-Details">
-                                                <p className="item-brand" style={{ marginBottom: "0px", fontWeight: "bold", fontFamily: "sans-serif" }}>Apollo</p>
-                                                <p className="item-name">{`${item.brand} ${item.name}`}</p>
-                                                <p className="item-price">{`${symbol} ${amount}`}</p>
+                                                <p className="item-brand regular-400" style={{ marginBottom: "0px"}}>Apollo</p>
+                                                <p className="item-name regular-400">{`${item.brand} ${item.name}`}</p>
+                                                <p className="item-price semibold-600">{`${symbol} ${amount}`}</p>
 
                                                 {
                                                     item.attributes.map((attr, index) => {
                                                         if (attr.name === "Color") {
                                                             return (
                                                                 <div key={index} className="size-holder">
-                                                                    <p style={{ color: "black", margin: 0, fontWeight: "bold", fontFamily: "sans-serif" }}>{attr.name.toUpperCase()}:</p>
+                                                                    <p className="regular-400" style={{ color: "black", margin: 0 }}>{attr.name}:</p>
                                                                     <div className="item-sizes">
                                                                         {attr.items.map((item, index) => {
                                                                             return (<div key={index} className={item.selected ? "item-size-selected" : "item-size"} style={{ backgroundColor: item.value }}></div>)
@@ -163,10 +163,10 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
                                                         }
                                                         else {
                                                             return (<div key={index} className="attributes-holder">
-                                                                <p style={{ color: "black", margin: "0 0 5px 0", fontWeight: "bold", fontFamily: "sans-serif" }}>{attr.name.toUpperCase()}:</p>
+                                                                <p className="regular-400" style={{ color: "black", margin: "0 0 5px 0" }}>{attr.name}:</p>
                                                                 <div className="attributes-attribute">
                                                                     {attr.items.map((item, index) => {
-                                                                        return (<div key={index} className={item.selected ? "attribute-value-selected" : "attribute-value"}>{item.value}</div>)
+                                                                        return (<div key={index} className={item.selected ? "mini-attribute-value-selected" : "mini-attribute-value"}>{item.value}</div>)
                                                                     })}
                                                                 </div>
                                                             </div>)
@@ -201,8 +201,8 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
                                     <label>{symbol}{totalPrice.toFixed(2)}</label>
                                 </div>
                                 <div className="item-checkout">
-                                    <button className="btn-secondary" onClick={() => this.props.location.pathname !== "/cart" && this.props.navigate(`/cart`)} >VIEW BAG</button>
-                                    <button className="btn-primary">CHECK OUT</button>
+                                    <button className="btn-secondary bold-700" onClick={() => this.props.location.pathname !== "/cart" && this.props.navigate(`/cart`)} >VIEW BAG</button>
+                                    <button className="btn-primary bold-700">CHECK OUT</button>
                                 </div>
                             </div>
                         </div>
