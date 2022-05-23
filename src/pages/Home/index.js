@@ -108,7 +108,7 @@ class Home extends Component {
                     {/* <Header /> */}
                     <div style={{ position: "relative", display: "block", paddingBottom: "100px" }}>
                         <div className="container">
-                            <PageHeading text={"Category Name"} />
+                            <PageHeading text={this.props.selectedCategory} />
                             <ProductList products={this.state.products} />
                         </div>
                         <div className="loading"></div>
