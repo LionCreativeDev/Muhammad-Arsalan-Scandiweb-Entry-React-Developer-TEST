@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import "./cart.css";
 
+import { connect } from "react-redux";//to connect with redux store
+import { updateCart } from "../../store/action";
+
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function withParams(Component) {
@@ -16,17 +19,35 @@ class MiniCart extends Component {
         super(props)
         this.state = {
             cart: [],
-            minicartOpen: false
+            minicartOpen: false,
+            cartSummery: { totalItems: 0, totalQuantity: 0, totalPrice: 0, taxPercentage: 21, taxAmount: 0, grandTotal: 0 }
         }
         this.ref = React.createRef();
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
+    componentDidMount() {
+        this.setState({ cart: this.props.cart });
+        this.calculateTotal(this.props.cart);
+        document.addEventListener('click', this.handleClickOutside, true);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.cart !== this.props.cart) {
+            this.setState({ cart: this.props.cart });
+            this.calculateTotal(this.props.cart);
+        }
+
+        if (prevProps.selectedCurrency !== this.props.selectedCurrency) {
+            this.calculateTotal(this.props.cart);
+        }
+    }
     handleClickOutside(event) {
         if (this.ref.current && !this.ref.current.contains(event.target)) {
             this.props.onClickOutside && this.props.onClickOutside();
-            //console.log("clicked outside");
+
             if (this.state.minicartOpen)
                 this.setState({ minicartOpen: false });
+
+            document.getElementsByClassName("loading")[0].style.display = "none";
         }
         else {
             const allowdClasses = ["cart-container", "item-summery", "cart-item", "item-Details", "item-brand", "item-name", "item-price", "size-holder", "item-sizes", "item-size", "item-size-selected", "color-holder", "item-colors", "item-color", "item-color-selected", "counter", "counter-control-minus", "counter-control-number", "counter-control-plus", "item-image-holder", "item-image", "cart-actions", "item-total"];
@@ -34,17 +55,8 @@ class MiniCart extends Component {
                 this.setState({ minicartOpen: true })
             else
                 this.setState({ minicartOpen: (this.state.minicartOpen ? false : true) })
-            //console.log("clicked inside");
         }
-
-        // if(!this.state.minicartOpen)
-        //     document.getElementsByClassName("loading")[0].style.display = "block";
-        // else
-        //     document.getElementsByClassName("loading")[0].style.display = "none";
     };
-    componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside, true);
-    }
     componentWillUnmount() {
         document.removeEventListener('click', this.handleClickOutside, true);
     };
@@ -54,7 +66,46 @@ class MiniCart extends Component {
         else if (!this.state.minicartOpen)
             document.getElementsByClassName("loading")[0].style.display = "none";
     }
+    handleQuantity(command, item) {
+        let tempitem = JSON.parse(JSON.stringify(item));
+
+        if (command === "plus") {
+            tempitem.quantity = tempitem.quantity + 1;
+            Object.preventExtensions(tempitem);
+            this.props.updateCart(tempitem);
+        } else if (command === "minus") {
+            if (tempitem.quantity > 1) {
+                tempitem.quantity = tempitem.quantity - 1;
+                Object.preventExtensions(tempitem);
+                this.props.updateCart(tempitem);
+            }
+        }
+    }
+    calculateTotal(cart) {
+        var totalItems = cart.length;
+        var totalQuantity = 0;
+        var totalPrice = 0;
+        var taxPercentage = 21;
+        var taxAmount = 0;
+        var grandTotal = 0;
+
+        cart.forEach(item => {
+            const priceInSelectedCurrency = item.prices.filter(price => price.currency.label === this.props.selectedCurrency.label);
+            const amount = priceInSelectedCurrency[0].amount;
+
+            totalQuantity = totalQuantity + item.quantity;
+            totalPrice = totalPrice + (amount * item.quantity);
+        });
+
+        taxAmount = (totalPrice * taxPercentage) / 100;
+        grandTotal = totalPrice + taxAmount;
+
+        this.setState({ cartSummery: { totalItems: totalItems, totalQuantity: totalQuantity, totalPrice: totalPrice, taxPercentage: taxPercentage, taxAmount: taxAmount, grandTotal: grandTotal } });
+    }
     render() {
+        const { symbol } = this.props.selectedCurrency;
+        const { totalQuantity, totalPrice } = this.state.cartSummery;
+
         return (
             <li ref={this.ref} style={{ margin: 0, padding: 0 }} onClick={() => { this.handleMiniCartClick() }}>
                 <div className="dropdown">
@@ -74,101 +125,80 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
 m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
                             </g>
                         </svg>
-                        <span className="badge">2</span>
+                        {totalQuantity > 0 ? <span className="badge">{totalQuantity}</span> : null}
                     </div>
 
                     <div className={`dropdown-content ${this.state.minicartOpen ? "show" : "hide"}`}>
                         <div className="cart-container">
                             <div className="item-summery">
-                                <span><label>My Bag</label> 3 items</span>
+                                <span><label>My Bag</label> {totalQuantity} items</span>
                             </div>
-
+{this.state.cart.length > 0 ? (
                             <div className="cart-items">
+                                {
+                                    this.state.cart.map((item, index) => {
+                                        const priceInSelectedCurrency = item.prices.filter(price => price.currency.label === this.props.selectedCurrency.label);
+                                        const amount = priceInSelectedCurrency[0].amount;
+                                        const symbol = priceInSelectedCurrency[0]["currency"].symbol;
 
-                                <div className="cart-item">
-                                    <div className="item-Details">
-                                        <p className="item-brand" style={{ marginBottom: "0px", fontWeight: "bold", fontFamily: "sans-serif" }}>Apollo</p>
-                                        <p className="item-name">Nike Air Huarache Le</p>
-                                        <p className="item-price">$19.99</p>
+                                        return (<div key={index} className="cart-item">
+                                            <div className="item-Details">
+                                                <p className="item-brand" style={{ marginBottom: "0px", fontWeight: "bold", fontFamily: "sans-serif" }}>Apollo</p>
+                                                <p className="item-name">{`${item.brand} ${item.name}`}</p>
+                                                <p className="item-price">{`${symbol} ${amount}`}</p>
 
-                                        <div className="size-holder">
-                                            <p style={{ color: "gray", margin: "0 0 5px 0" }}>Size:</p>
-                                            <div className="item-sizes">
-                                                <div className="item-size">XS</div>
-                                                <div className="item-size-selected">S</div>
-                                                <div className="item-size">M</div>
-                                                <div className="item-size">L</div>
+                                                {
+                                                    item.attributes.map((attr, index) => {
+                                                        if (attr.name === "Color") {
+                                                            return (
+                                                                <div key={index} className="size-holder">
+                                                                    <p style={{ color: "black", margin: 0, fontWeight: "bold", fontFamily: "sans-serif" }}>{attr.name.toUpperCase()}:</p>
+                                                                    <div className="item-sizes">
+                                                                        {attr.items.map((item, index) => {
+                                                                            return (<div key={index} className={item.selected ? "item-size-selected" : "item-size"} style={{ backgroundColor: item.value }}></div>)
+                                                                        })}
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        }
+                                                        else {
+                                                            return (<div key={index} className="attributes-holder">
+                                                                <p style={{ color: "black", margin: "0 0 5px 0", fontWeight: "bold", fontFamily: "sans-serif" }}>{attr.name.toUpperCase()}:</p>
+                                                                <div className="attributes-attribute">
+                                                                    {attr.items.map((item, index) => {
+                                                                        return (<div key={index} className={item.selected ? "attribute-value-selected" : "attribute-value"}>{item.value}</div>)
+                                                                    })}
+                                                                </div>
+                                                            </div>)
+                                                        }
+                                                    })
+                                                }
+
+                                            </div>
+
+                                            <div className="counter">
+                                                <div className="counter-control-plus" onClick={() => { this.handleQuantity("plus", item) }}>+</div>
+                                                <div className="counter-control-number">{item.quantity}</div>
+                                                <div className="counter-control-minus" onClick={() => { this.handleQuantity("minus", item) }}>-</div>
+                                            </div>
+
+                                            <div className="item-image-holder">
+                                                <img src={item.gallery[0]} className="item-image" alt={item.name + " image"} />
                                             </div>
                                         </div>
+                                        )
+                                    })
+                                }
 
-                                        <div className="color-holder">
-                                            <p style={{ color: "gray", margin: "0 0 5px 0" }}>Color:</p>
-                                            <div className="item-colors">
-                                                <div className="item-color" style={{ backgroundColor: "gray" }}></div>
-                                                <div className="item-color-selected" style={{ backgroundColor: "black" }}></div>
-                                                <div className="item-color" style={{ backgroundColor: "darkgreen" }}></div>
-                                                <div className="item-color" style={{ backgroundColor: "darkorange" }}></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="counter">
-                                        <div className="counter-control-minus">+</div>
-                                        <div className="counter-control-number">1</div>
-                                        <div className="counter-control-plus">-</div>
-                                    </div>
-
-                                    <div className="item-image-holder">
-                                        <img src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087"
-                                            className="item-image" alt="Nike Air Huarache Le" />
-                                    </div>
-                                </div>
-
-                                <div className="cart-item">
-                                    <div className="item-Details">
-                                        <p className="item-brand" style={{ marginBottom: "0px", fontWeight: "bold", fontFamily: "sans-serif" }}>Apollo</p>
-                                        <p className="item-name">Nike Air Huarache Le</p>
-                                        <p className="item-price">$19.99</p>
-
-                                        <div className="size-holder">
-                                            <p style={{ color: "gray", margin: "0 0 5px 0" }}>Size:</p>
-                                            <div className="item-sizes">
-                                                <div className="item-size">XS</div>
-                                                <div className="item-size-selected">S</div>
-                                                <div className="item-size">M</div>
-                                                <div className="item-size">L</div>
-                                            </div>
-                                        </div>
-
-                                        <div className="color-holder">
-                                            <p style={{ color: "gray", margin: "0 0 5px 0" }}>Color:</p>
-                                            <div className="item-colors">
-                                                <div className="item-color" style={{ backgroundColor: "gray" }}></div>
-                                                <div className="item-color-selected" style={{ backgroundColor: "black" }}></div>
-                                                <div className="item-color" style={{ backgroundColor: "darkgreen" }}></div>
-                                                <div className="item-color" style={{ backgroundColor: "darkorange" }}></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="counter">
-                                        <div className="counter-control-minus">+</div>
-                                        <div className="counter-control-number">1</div>
-                                        <div className="counter-control-plus">-</div>
-                                    </div>
-
-                                    <div className="item-image-holder">
-                                        <img src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087"
-                                            className="item-image" alt="Nike Air Huarache Le" />
-                                    </div>
-                                </div>
-
-                            </div>
+                            </div>)
+                            :
+                            (<div style={{textAlign: "center", padding: "5px"}}>Cart is empty</div>)
+                            }
 
                             <div className="cart-actions">
                                 <div className="item-total">
                                     <label>Total</label>
-                                    <label>$200</label>
+                                    <label>{symbol}{totalPrice.toFixed(2)}</label>
                                 </div>
                                 <div className="item-checkout">
                                     <button className="btn-secondary" onClick={() => this.props.location.pathname !== "/cart" && this.props.navigate(`/cart`)} >VIEW BAG</button>
@@ -183,4 +213,12 @@ m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z" />
     }
 }
 
-export default withParams(MiniCart);
+const mapStateToProp = (state) => ({
+    cart: state.cart,
+    selectedCurrency: state.selectedCurrency
+})
+const mapDispatchToProp = (dispatch) => ({
+    updateCart: (cartItem) => dispatch(updateCart(cartItem))
+})
+
+export default connect(mapStateToProp, mapDispatchToProp)(withParams(MiniCart));

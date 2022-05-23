@@ -12,12 +12,8 @@ class SnackBar extends Component {
         }
     }
     closeButtonHandler() {
-        //this.setState({ snackbar: { open: false, message: "", variant: "success" } });
         this.props.hideSnackBar();
     }
-    // componentDidMount() {
-    //     this.setState({ snackbar: { open: true, message: "Message goes here", variant: "success" } });
-    // }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.snackbar !== this.props.snackbar) {
             this.setState({ snackbar: this.props.snackbar });

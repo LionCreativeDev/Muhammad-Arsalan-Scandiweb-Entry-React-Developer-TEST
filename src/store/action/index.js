@@ -1,5 +1,4 @@
 const setSelectedCategory = (category) =>{
-    //console.log("setSelectedCategory", category);
     const serializedState = JSON.stringify({selectedCategory: category});
     localStorage.setItem("selectedCategory", serializedState);
 
@@ -9,7 +8,6 @@ const setSelectedCategory = (category) =>{
 }
 
 const setSelectedCurrency = (currency) =>{
-    //console.log("setSelectedCurrency", currency);
     const {symbol, label} = currency;
     const serializedState = JSON.stringify([{symbol: symbol, label: label}]);
     localStorage.setItem("selectedCurrency", serializedState);
@@ -43,11 +41,25 @@ const hideSnackBar = () =>{
     }
 }
 
+const showModal = (product) =>{
+    return (dispatch) =>{
+        dispatch({ type: "SHOW_MODAL", data: product });
+    }
+}
+
+const hideModal = () =>{
+    return (dispatch) =>{
+        dispatch({ type: "HIDE_MODAL" });
+    }
+}
+
 export {
     setSelectedCategory,
     setSelectedCurrency,
     addToCart,
     updateCart,
     showSnackBar,
-    hideSnackBar
+    hideSnackBar,
+    showModal,
+    hideModal
 }

@@ -4,13 +4,12 @@ import PageHeading from '../../containers/pageheading';
 import ProductList from '../../containers/productList';
 
 import { connect } from "react-redux";//to connect with redux store
-import { setSelectedCategory } from "../../store/action";
+import { addToCart, updateCart } from "../../store/action";
 
 import {
     ApolloClient,
     InMemoryCache,
     ApolloProvider,
-    //useQuery,
     gql
 } from "@apollo/client";
 
@@ -62,31 +61,45 @@ class Home extends Component {
             }
             `
         }).then(result => {
-            //console.log(result);
-            const { loading, error, data } = result;
-            //console.log("loading", loading);
-            //console.log("error", error);
-            //console.log("products", data["category"]["products"]);
+            const { data } = result;
+            
             if (data)
                 this.setState({ products: data["category"]["products"] });
         });
+    }
+    onUpdateCart = () => {
+        setTimeout(() => {
+            let cart = this.props.cart;
+            let cartItems = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];            
+            if (cart !== cartItems) {
+                cartItems.forEach(cartItem => {
+                    if (!cart.some(item => item.uniqueItemID === cartItem.uniqueItemID))
+                        this.props.addToCart(cartItem);
+                    else if (cart.some(item => item.uniqueItemID === cartItem.uniqueItemID)) {
+                        let index = cart.findIndex(item => item.uniqueItemID === cartItem.uniqueItemID);
+                        cart[index].quantity = cartItem.quantity;
+                        this.props.updateCart(cart[index]);
+                    }
+                });
+            }
+        }, 500)
     }
     componentDidMount() {
         if (this.props.selectedCategory === "all" || this.props.selectedCategory === "")
             this.fecthProducts("all");
         else
             this.fecthProducts(this.props.selectedCategory);
+
+        this.onUpdateCart(this.props.cart);
+        window.addEventListener("storage", this.onUpdateCart);
     }
     componentDidUpdate(prevProps, prevState) {
-        // if (prevState !== this.state) {
-        //     //console.log("this.state", this.state);
-        // }
-
         if (prevProps !== this.props) {
-            //console.log("this.props", this.props);
             this.fecthProducts(this.props.selectedCategory);
-            //this.setState({ selectedCategory: this.props.selectedCategory });
         }
+    }
+    componentWillUnmount() {
+        window.removeEventListener("storage", this.onUpdateCart);
     }
     render() {
         return (
@@ -107,10 +120,12 @@ class Home extends Component {
 }
 
 const mapStateToProp = (state) => ({
+    cart: state.cart,
     selectedCategory: state.selectedCategory
 })
-// const mapDispatchToProp = (dispatch) => ({
-//     setSelectedCategory : (selectedCategory)=> dispatch(setSelectedCategory(selectedCategory))
-// })
+const mapDispatchToProp = (dispatch) => ({
+    addToCart: (cartItem) => dispatch(addToCart(cartItem)),
+    updateCart: (cartItem) => dispatch(updateCart(cartItem))
+})
 
-export default connect(mapStateToProp, null)(Home);
+export default connect(mapStateToProp, mapDispatchToProp)(Home);

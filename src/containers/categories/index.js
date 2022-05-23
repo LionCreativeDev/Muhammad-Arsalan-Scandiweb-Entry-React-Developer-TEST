@@ -33,7 +33,7 @@ class Categories extends Component {
             selectedCategory: "all"
         }
     }
-    fecthCategories() {
+    fetchCategories() {
         client.query({
             query: gql`
         {
@@ -42,11 +42,8 @@ class Categories extends Component {
             }
         }
       `}).then(result => {
-                //console.log(result);
-                const { loading, error, data } = result;
-                // console.log("loading", loading);
-                // console.log("error", error);
-                // console.log("categories", data);
+                const { data } = result;
+
                 if (data) {
                     this.setState({
                         Categories: data["categories"]
@@ -55,15 +52,11 @@ class Categories extends Component {
             });
     }
     componentDidMount() {
-        this.fecthCategories();
-        //if user has not selected any category, then show all categories
-        // if (this.state.selectedCategory === "")
-        //     this.setState({ selectedCategory: "all" });
-
-        //console.log("props", this.props);
+        this.fetchCategories();
+        
         if (localStorage.getItem("selectedCategory") !== null) {
             const saveSelectedCategory = JSON.parse(localStorage.getItem("selectedCategory"));
-            //console.log("saveSelectedCategory", saveSelectedCategory);
+
             if (this.props.selectedCategory !== saveSelectedCategory.selectedCategory)
                 this.props.setSelectedCategory(saveSelectedCategory.selectedCategory);
         }
@@ -72,11 +65,8 @@ class Categories extends Component {
         }
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.selectedCategory !== this.props.selectedCategory) {
-            // console.log("prevProps", prevProps)
-            // console.log("this.props", this.props)
+        if (prevProps.selectedCategory !== this.props.selectedCategory) 
             this.setState({ selectedCategory: this.props.selectedCategory });
-        }
     }
     handleCategoryClick(category) {
         if (this.props.location.pathname.includes("/productdetail/") || this.props.location.pathname === "/cart") {
@@ -91,20 +81,16 @@ class Categories extends Component {
     }
     render() {
         const AllCategories = this.state.Categories;
-        //console.log("AllCategories", AllCategories);
+        
         return (
             <ApolloProvider client={client}>
                 <ul>
                     {AllCategories.map((category, index) => {
                         if (this.state.selectedCategory.toUpperCase() === category.name.toUpperCase())
-                            return (<li className="active" key={index}><div className="menu-item">{category.name.toUpperCase()}</div></li>)
+                            return (<li className="active" key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item">{category.name.toUpperCase()}</div></li>)
                         else
                             return (<li key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item">{category.name.toUpperCase()}</div></li>)
                     })}
-
-                    {/* <li className="active"><div className="menu-item">WOMEN</div></li>
-                    <li><div className="menu-item">MEN</div></li>
-                    <li><div className="menu-item">KIDS</div></li> */}
                 </ul>
             </ApolloProvider>
         )

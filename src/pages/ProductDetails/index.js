@@ -3,11 +3,14 @@ import React, { Component } from 'react'
 import ProductDetail from '../../containers/productdetail';
 import ProductImages from '../../containers/productimages';
 
+import { connect } from "react-redux";//to connect with redux store
+import { addToCart, updateCart } from "../../store/action";
+
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
     ApolloClient,
     InMemoryCache,
-    ApolloProvider,
+    //ApolloProvider,
     //useQuery,
     gql
 } from "@apollo/client";
@@ -64,11 +67,8 @@ class ProductDetails extends Component {
                 }
               }
       `}).then(result => {
-                //console.log(result);
-                const { loading, error, data } = result;
-                // console.log("loading", loading);
-                // console.log("error", error);
-                // console.log("product", data["product"]);
+                const { data } = result;
+                
                 if (data) {
                     this.setState({
                         product: data["product"]
@@ -76,10 +76,34 @@ class ProductDetails extends Component {
                 }
             });
     }
+    onUpdateCart = () => {
+        setTimeout(() => {
+            let cart = this.props.cart;
+            let cartItems = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
+            if (cart !== cartItems) {
+                cartItems.forEach(cartItem => {
+                    if (!cart.some(item => item.uniqueItemID === cartItem.uniqueItemID))
+                        this.props.addToCart(cartItem);
+                    else if (cart.some(item => item.uniqueItemID === cartItem.uniqueItemID)) {
+                        let index = cart.findIndex(item => item.uniqueItemID === cartItem.uniqueItemID);
+                        cart[index].quantity = cartItem.quantity;
+                        this.props.updateCart(cart[index]);
+                    }
+                });
+            }
+        }, 500)
+    }
     componentDidMount() {
-        //console.log(this.props.params);
-        //onClick={()=>{this.props.navigate(-1)}}
-        this.fecthProductDetails(this.props.params.productId)
+        this.onUpdateCart();
+        window.addEventListener("storage", this.onUpdateCart);
+        
+        if (this.props.productid !== undefined)
+            this.fecthProductDetails(this.props.productid);
+        else if (this.props.params.productId !== undefined)
+            this.fecthProductDetails(this.props.params.productId)
+    }
+    componentWillUnmount() {
+        window.removeEventListener("storage", this.onUpdateCart);
     }
     render() {
         const product = this.state.product;
@@ -87,10 +111,12 @@ class ProductDetails extends Component {
         return (
             <>
                 {/* <Header /> */}
-                <div style={{ position: "relative", display: "block" }}>
-                    <div className="container">
+                {/* <div style={{ position: "relative", display: "block" }}>
+                    <div className="container"> */}
+                <div style={{ position: "relative", display: "block", height: "84.2%" }}>
+                    <div className="container" style={{ height: "100%" }}>
                         <div className="row">
-                            <ProductImages images={product.gallery} />
+                            <ProductImages images={product.gallery} name={product.name} />
                             <ProductDetail product={product} />
                         </div>
                     </div>
@@ -101,12 +127,12 @@ class ProductDetails extends Component {
     }
 }
 
-export default withParams(ProductDetails);
+const mapStateToProp = (state) => ({
+    cart: state.cart
+})
+const mapDispatchToProp = (dispatch) => ({
+    addToCart: (cartItem) => dispatch(addToCart(cartItem)),
+    updateCart: (cartItem) => dispatch(updateCart(cartItem))
+})
 
-// import { useParams } from "react-router-dom";
-
-// function withParams(Component) {
-//   return props => <Component {...props} params={useParams()} />;
-// }
-
-// withParams(ProductDetails)
+export default connect(mapStateToProp, mapDispatchToProp)(withParams(ProductDetails));

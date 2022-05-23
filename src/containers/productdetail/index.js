@@ -12,9 +12,6 @@ class ProductDetail extends Component {
             snackbar: { open: false, message: "", variant: "" }
         }
     }
-    // componentDidMount() {
-    //     console.log("props", this.props.product);
-    // }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.product !== this.props.product) {
             this.setState({ product: this.props.product });
@@ -22,6 +19,8 @@ class ProductDetail extends Component {
 
         if (prevProps.cart !== this.props.cart) {
             this.setState({ cart: this.props.cart });
+            const serializedState = JSON.stringify(this.props.cart);
+            localStorage.setItem("cart", serializedState);
         }
     }
     handeSelection(property, value) {
@@ -38,9 +37,9 @@ class ProductDetail extends Component {
     }
     generateUniqueItemID(itemToAdd) {
         let uniqueItemID = itemToAdd.id;
-        itemToAdd.attributes.map(attr => {
-            attr.items.map(item => {
-                if (item.selected)//console.log("item", item);
+        itemToAdd.attributes.forEach(attr => {
+            attr.items.forEach(item => {
+                if (item.selected)
                     uniqueItemID += "-" + item.displayValue.replace(" ", "-");
             })
         });
@@ -48,27 +47,21 @@ class ProductDetail extends Component {
     }
     addToCart(itemToAdd) {
         const uniqueItemID = this.generateUniqueItemID(itemToAdd);
-        if (this.state.cart.length === 0) { //if cart is empty, add this item to cart
+        
+        const cart = this.props.cart;
+        const index = cart.findIndex(item => item.uniqueItemID === uniqueItemID);
+        if (index === -1) { // cart do not have this item, add this item to cart
             var tempitem = JSON.parse(JSON.stringify(itemToAdd));
             tempitem.uniqueItemID = uniqueItemID;
             tempitem.quantity = 1;
             Object.preventExtensions(tempitem);
             this.props.addToCart(tempitem);
         }
-        else { //if cart is not empty, check if this item is already in cart
-            const cart = this.props.cart;
-            const index = cart.findIndex(item => item.uniqueItemID === uniqueItemID);
-            if (index === -1) { // cart do not have this item, add this item to cart
-                var tempitem = JSON.parse(JSON.stringify(itemToAdd));
-                tempitem.uniqueItemID = uniqueItemID;
-                tempitem.quantity = 1;
-                Object.preventExtensions(tempitem);
-                this.props.addToCart(tempitem);
-            }
-            else { //cart has this item, update the quantity
-                cart[index].quantity++;
-                this.props.updateCart(cart);
-            }
+        else { //cart has this item, update the quantity
+            const tempitem = cart[index];
+            tempitem.quantity = tempitem.quantity + 1;
+            Object.preventExtensions(tempitem);
+            this.props.updateCart(tempitem);
         }
 
         this.props.showSnackBar({ open: true, message: "Item added in Cart", variant: "success" }); //add item in cart        
@@ -148,7 +141,7 @@ class ProductDetail extends Component {
 const mapStateToProp = (state) => ({
     cart: state.cart,
     selectedCurrency: state.selectedCurrency,
-    snackbar: state.selectedCurrency
+    snackbar: state.snackbar
 })
 const mapDispatchToProp = (dispatch) => ({
     addToCart: (cartItem) => dispatch(addToCart(cartItem)),

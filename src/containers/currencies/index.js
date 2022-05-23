@@ -29,7 +29,7 @@ class Currencies extends Component {
     handleClickOutside(event) {
         if (this.ref.current && !this.ref.current.contains(event.target)) {
             this.props.onClickOutside && this.props.onClickOutside();
-            //console.log("clicked outside");
+            
             if (this.state.currencySelectorOpen)
                 this.setState({ currencySelectorOpen: false });
         }
@@ -44,11 +44,8 @@ class Currencies extends Component {
                 }
             }
       `}).then(result => {
-                //console.log(result);
-                const { loading, error, data } = result;
-                // console.log("loading", loading);
-                // console.log("error", error);
-                //console.log("currencies", data);
+                const { data } = result;
+
                 if (data) {
                     this.setState({
                         Currencies: data["currencies"]
@@ -76,7 +73,6 @@ class Currencies extends Component {
     render() {
         const AllCurrencies = this.state.Currencies;
         const { symbol } = this.state.selectedCurrency;
-        //console.log("AllCurrencies", AllCurrencies);
 
         return (
             <ApolloProvider client={client}>
@@ -100,9 +96,6 @@ class Currencies extends Component {
                             {AllCurrencies.map((currency, index) => {
                                 return (<label key={index} className="currency" onClick={() => { this.props.setSelectedCurrency(currency) }}>{`${currency.symbol} ${currency.label}`}</label>)
                             })}
-                            {/* <label className="currency">$ USD</label>
-                            <label className="currency">€ EUR</label>
-                            <label className="currency">¥ JPY</label> */}
                         </div>
                     </div>
                 </li>
