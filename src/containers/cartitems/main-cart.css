@@ -98,7 +98,7 @@
 .main-cart-item-color-selected {
     min-width: 18px;
     min-height: 18px;
-    border: 2px solid #5aee87;
+    border: 2px solid #5ECE7B;
     padding: 4px;
     margin-right: 2px;
     box-sizing: content-box !important;
@@ -174,7 +174,7 @@
 }
 
 .btn-order {
-    background-color: #5aee87;
+    background-color: #5ECE7B;
     color: white;
     border: none;
     padding: 10px 45px;

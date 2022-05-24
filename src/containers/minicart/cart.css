@@ -92,7 +92,7 @@
 .item-color-selected {
     min-width: 18px;
     min-height: 18px;
-    border: 2px solid #5aee87;
+    border: 2px solid #5ECE7B;
     padding: 4px;
     margin-right: 2px;
 } */
@@ -108,7 +108,7 @@
 .item-color-selected {
     min-width: 12px;
     min-height: 12px;
-    border: 2px solid #5aee87;
+    border: 2px solid #5ECE7B;
     padding: 4px;
     margin-right: 2px;
     box-sizing: content-box !important;
@@ -170,8 +170,8 @@
 }
 
 .btn-primary {
-    background-color: #5aee87;
-    /* border: 1px solid #5aee87; */
+    background-color: #5ECE7B;
+    /* border: 1px solid #5ECE7B; */
     color: white;
     border: none;
     /* padding: 10px 45px; */
@@ -322,7 +322,7 @@
 .product-color-selected {
     min-width: 18px;
     min-height: 18px;
-    border: 2px solid #5aee87;
+    border: 2px solid #5ECE7B;
     padding: 4px;
     margin-right: 2px;
     box-sizing: content-box !important;

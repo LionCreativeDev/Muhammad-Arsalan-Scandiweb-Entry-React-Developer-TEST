@@ -161,7 +161,7 @@ a {
 }
 
 a:hover {
-  color: #5aee87;
+  color: #5ECE7B;
 }
 
 a:not([href]):not([class]),
@@ -190,12 +190,12 @@ nav ul>li {
 }
 
 nav ul>li.active {
-  border-bottom: 2px solid #5aee87;
+  border-bottom: 2px solid #5ECE7B;
   cursor: pointer;
 }
 
 .active>.menu-item {
-  color: #5aee87;
+  color: #5ECE7B;
 }
 
 nav ul li .menu-item {
@@ -204,7 +204,7 @@ nav ul li .menu-item {
 }
 
 nav ul li .menu-item:hover {
-  color: #5aee87;
+  color: #5ECE7B;
   text-decoration: none;
   cursor: pointer;
 }
