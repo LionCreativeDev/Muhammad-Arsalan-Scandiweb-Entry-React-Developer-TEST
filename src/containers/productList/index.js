@@ -69,26 +69,32 @@ class ProductList extends Component {
                         return (<div key={index} className="col-sm-12 col-md-4 col-lg-4 mb-5" onClick={(e) => { this.moveToProductDetails(e, thisproduct) }}>
                             <div className={inStock ? "product-card" : "out-of-stock"}>
                                 <div className="product-action-container">
+                                    {inStock && (
+                                        <>
+                                            <div className='product-badge'>
+                                                <svg className="badge-icon" width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="#ffffff" stroke-width="2" >
+                                                    <path xmlns="http://www.w3.org/2000/svg" d="M 16.949219 1.914062 L 7.925781 11.082031 L 3.957031 7.230469 L 0 11.3125 L 8.019531 19.085938 L 21 5.898438 Z M 8 17.238281 L 1.855469 11.285156 L 3.984375 9.085938 L 7.949219 12.929688 L 16.964844 3.765625 L 19.144531 5.914062 Z M 8 17.238281 " />
+                                                </svg>
+                                                <span className='badge-label semibold-600'></span>
+                                            </div>
+                                            <svg className="like" title="Like Heart SVG File" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                        </>
+                                    )}
+
                                     <img src={gallery[0]} alt={`${name}`} style={{ width: "100%", height: "21.5vw", objectFit: "contain" }} />
                                     <div className="addtocart" onClick={() => { this.handleAddToCart(thisproduct) }}>
-                                        <svg className="cart" version="1.0" xmlns="http://www.w3.org/2000/svg" width="24.000000pt"
-                                            height="24.000000pt" viewBox="0 0 24.000000 24.000000"
-                                            preserveAspectRatio="xMidYMid meet">
-
-                                            <g transform="translate(0.000000,24.000000) scale(0.100000,-0.100000)" fill="#FFFFFF"
-                                                stroke="none">
-                                                <path d="M12 224 c19 -6 23 -18 36 -94 l8 -45 78 0 79 0 13 45 c8 25 14 46 14
-                48 0 1 -42 2 -93 2 -86 0 -93 2 -102 22 -6 13 -19 24 -30 25 -16 1 -16 1 -3
-                -3z m204 -91 l-13 -38 -67 -3 c-70 -3 -68 -4 -80 51 l-6 27 89 0 90 0 -13 -37z"></path>
-                                                <path d="M54 45 c-4 -9 -2 -21 4 -27 16 -16 47 -5 47 17 0 26 -42 34 -51 10z
-                m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z"></path>
-                                                <path d="M164 45 c-4 -9 -2 -21 4 -27 16 -16 47 -5 47 17 0 26 -42 34 -51 10z
-                m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z"></path>
+                                        <svg className="cart" version="1.0" xmlns="http://www.w3.org/2000/svg" width="24.000000pt" height="24.000000pt" viewBox="0 0 24.000000 24.000000" preserveAspectRatio="xMidYMid meet">
+                                            <g transform="translate(0.000000,24.000000) scale(0.100000,-0.100000)" fill="#FFFFFF" stroke="none">
+                                                <path d="M12 224 c19 -6 23 -18 36 -94 l8 -45 78 0 79 0 13 45 c8 25 14 46 14 48 0 1 -42 2 -93 2 -86 0 -93 2 -102 22 -6 13 -19 24 -30 25 -16 1 -16 1 -3 -3z m204 -91 l-13 -38 -67 -3 c-70 -3 -68 -4 -80 51 l-6 27 89 0 90 0 -13 -37z"></path>
+                                                <path d="M54 45 c-4 -9 -2 -21 4 -27 16 -16 47 -5 47 17 0 26 -42 34 -51 10z m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z"></path>
+                                                <path d="M164 45 c-4 -9 -2 -21 4 -27 16 -16 47 -5 47 17 0 26 -42 34 -51 10z m39 -10 c1 -5 -6 -11 -15 -13 -11 -2 -18 3 -18 13 0 17 30 18 33 0z"></path>
                                             </g>
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="product-name regular-400">{`${brand} ${name}`}</p>
+                                <p className="product-name light-300">{`${brand} ${name}`}</p>
                                 {/* <div className="price" style={{fontWeight: 600}}>
                                     <div>{symbol}</div>
                                     <div style={{marginTop: "1px"}}>{amount}</div>

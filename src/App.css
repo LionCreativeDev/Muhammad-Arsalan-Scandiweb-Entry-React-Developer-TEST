@@ -1,33 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700&display=swap');
 
-.extralight-200{
+.extralight-200 {
   font-family: 'Raleway', sans-serif;
-  font-weight: 200!important;
+  font-weight: 200 !important;
 }
 
-.light-300{
+.light-300 {
   font-family: 'Raleway', sans-serif;
-  font-weight: 300!important;
+  font-weight: 300 !important;
 }
 
-.regular-400{
+.regular-400 {
   font-family: 'Raleway', sans-serif;
-  font-weight: 400!important;
+  font-weight: 400 !important;
 }
 
-.medium-500{
+.medium-500 {
   font-family: 'Raleway', sans-serif;
-  font-weight: 500!important;
+  font-weight: 500 !important;
 }
 
-.semibold-600{
+.semibold-600 {
   font-family: 'Raleway', sans-serif;
-  font-weight: 600!important;
+  font-weight: 600 !important;
 }
 
-.bold-700{
+.bold-700 {
   font-family: 'Raleway', sans-serif;
-  font-weight: 700!important;
+  font-weight: 700 !important;
 }
 
 * {
@@ -66,7 +66,8 @@ html {
   overflow-x: hidden;
 }
 
-body, #root {
+body,
+#root {
   height: 100vh;
 }
 
@@ -215,6 +216,8 @@ nav ul li .menu-item:hover {
 
 .currency {
   font-weight: 500;
+  font-size: 18px;
+  line-height: 160%;
   /* padding-right: 5px; */
 }
 
@@ -225,9 +228,9 @@ nav ul li .menu-item:hover {
 }
 
 .cart {
-  width: 20px;
-  height: 20px;
-  margin-bottom: -5px;
+  width: 24px;
+  height: 24px;
+  /* margin-bottom: -5px; */
 }
 
 .currency-dropbtn {
@@ -270,10 +273,12 @@ nav ul li .menu-item:hover {
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  font-size: 18px;
+  line-height: 160%;
 }
 
 .currency-dropdown-content label:hover {
-  background-color: #ddd;
+  background-color: #EEEEEE;
 }
 
 /* .currency-dropdown:hover .currency-dropdown-content {
@@ -752,16 +757,16 @@ nav ul li .menu-item:hover {
     .col-12 {width: 100%;}
 } */
 
-.attributes-holder{
+.attributes-holder {
   margin-bottom: 15px;
 }
 
-.attributes-attribute{
+.attributes-attribute {
   display: flex;
   flex-direction: row;
 }
 
-.attribute-value{
+.attribute-value {
   text-align: center;
   font-size: 12px;
   /* font-family: sans-serif; */
@@ -773,7 +778,7 @@ nav ul li .menu-item:hover {
   box-sizing: content-box !important;
 }
 
-.attribute-value-selected{
+.attribute-value-selected {
   text-align: center;
   font-size: 12px;
   font-family: sans-serif;
@@ -787,7 +792,7 @@ nav ul li .menu-item:hover {
   box-sizing: content-box !important;
 }
 
-.mini-attribute-value-selected{
+.mini-attribute-value-selected {
   text-align: center;
   font-size: 12px;
   font-family: sans-serif;
@@ -800,7 +805,7 @@ nav ul li .menu-item:hover {
   box-sizing: content-box !important;
 }
 
-.mini-attribute-value{
+.mini-attribute-value {
   text-align: center;
   font-size: 12px;
   border: 1px solid black;

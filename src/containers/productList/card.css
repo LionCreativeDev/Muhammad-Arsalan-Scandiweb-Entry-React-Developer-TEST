@@ -25,6 +25,7 @@
     color: black;
     margin-bottom: 0;
     padding-top: 10px;
+    font-size: 18px;
 }
 
 .price {
@@ -36,8 +37,8 @@
     position: absolute;
     bottom: 0;
     right: 20px;
-    width: 45px;
-    height: 45px;
+    width: 52px;
+    height: 52px;
     background-color: #5ECE7B;
     border: none;
     /* color: white; */
@@ -45,12 +46,46 @@
     text-align: center;
     /* text-decoration: none; */
     display: inline-block;
-    font-size: 16px;
+    font-size: 24px;
     /* margin: 4px 4px; */
     cursor: pointer;
     border-radius: 25px;
-    margin-bottom: -10px;
+    /* margin-bottom: -10px; */
+    margin-right: 2px;
     display: none;
+}
+
+.product-badge {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 10px;
+    position: absolute;
+    /* width: 85px; */
+    height: 35px;
+    left: 0px;
+    top: 20px;
+}
+
+.badge-label {
+    width: 29px;
+    height: 19px;
+
+    font-size: 12px;
+    line-height: 160%;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.like {
+    position: absolute;
+    top: 20px;
+    right: 36px;
+    cursor: pointer;
 }
 
 .out-of-stock {
@@ -64,7 +99,7 @@
     font-size: 18px;
 }
 
-.out-of-stock:hover{
+.out-of-stock:hover {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     max-width: 320px;
     margin: auto;
@@ -94,6 +129,6 @@
     font-size: 20px;
 }
 
-.out-of-stock > .overlay{
+.out-of-stock>.overlay {
     display: flex;
 }
