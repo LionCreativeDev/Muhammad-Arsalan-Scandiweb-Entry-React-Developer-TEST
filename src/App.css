@@ -211,7 +211,9 @@ nav ul li .menu-item:hover {
 }
 
 .logo {
-  width: 30px;
+  /* width: 30px; */
+  width: 41px;
+  height: 41px;
 }
 
 .currency {
