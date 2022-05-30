@@ -94,8 +94,8 @@ class ProductDetail extends Component {
             <div className="col-sm-12 col-md-4 col-lg-4 pdp">
                 <div className="product-Details">
 
-                    <p className="product-brand bold-700">{brand}</p>
-                    <p className="product-name medium-500">{name}</p>
+                    <p className="product-brand semibold-600">{brand}</p>
+                    <p className="product-name regular-400">{name}</p>
                     {
                         attributes.map((attr, index) => {
                             if (attr.name === "Color") {

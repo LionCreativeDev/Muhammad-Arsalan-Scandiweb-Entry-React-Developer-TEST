@@ -106,7 +106,7 @@ class Home extends Component {
             <>
                 <ApolloProvider client={client}>
                     {/* <Header /> */}
-                    <div style={{ position: "relative", display: "block", paddingBottom: "100px" }}>
+                    <div style={{ position: "relative", display: "block"}}>
                         <div className="container">
                             <PageHeading text={this.props.selectedCategory} />
                             <ProductList products={this.state.products} />

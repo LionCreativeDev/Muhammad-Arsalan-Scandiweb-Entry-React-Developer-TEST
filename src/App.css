@@ -760,7 +760,8 @@ nav ul li .menu-item:hover {
 } */
 
 .attributes-holder {
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
+  margin-bottom: 25px;
 }
 
 .attributes-attribute {
