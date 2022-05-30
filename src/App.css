@@ -45,6 +45,25 @@ html {
   box-sizing: inherit;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -180,14 +199,22 @@ a:not([href]):not([class]):hover {
 nav {
   display: flex;
   justify-content: space-between;
-  padding: 20px 50px;
+  /* padding: 20px 50px; */
+  padding: 0px 35px;
+  height: 80px;
   align-items: center;
 }
 
 nav ul>li {
-  padding: 15px;
+  /* padding: 15px; */
+  padding: 12px 16px 20px 16px;
   display: inline-block;
   transition: all .3s ease;
+}
+
+nav ul>li {
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
 }
 
 nav ul>li.active {
@@ -202,6 +229,8 @@ nav ul>li.active {
 nav ul li .menu-item {
   color: #000;
   text-decoration: none;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 nav ul li .menu-item:hover {
@@ -232,7 +261,7 @@ nav ul li .menu-item:hover {
 .cart {
   width: 24px;
   height: 24px;
-  /* margin-bottom: -5px; */
+  margin-bottom: -5px;
 }
 
 .currency-dropbtn {
