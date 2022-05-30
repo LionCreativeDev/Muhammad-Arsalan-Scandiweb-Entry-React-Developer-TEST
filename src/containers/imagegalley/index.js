@@ -36,7 +36,7 @@ class ImageGallery extends Component {
                     <div className="image-controls-holder">
                         {/* <div className={currentIndex === 0 ? `disabled` : `enabled`} onClick={() => { this.handleProductImages("previous") }}>{"<"}</div>
                         <div className={currentIndex === gallery.length-1 ? `disabled` : `enabled`} onClick={() => { this.handleProductImages("next") }}>{">"}</div> */}
-                        <div onClick={() => { this.handleProductImages("previous") }}>{"<"}</div>
+                        <div onClick={() => { this.handleProductImages("previous") }} style={{marginRight: 5}}>{"<"}</div>
                         <div onClick={() => { this.handleProductImages("next") }}>{">"}</div>
                     </div>)
                 }

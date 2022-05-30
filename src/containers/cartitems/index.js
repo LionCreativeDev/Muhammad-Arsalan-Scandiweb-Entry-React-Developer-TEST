@@ -85,8 +85,8 @@ class CartItems extends Component {
 
                                     return (<div key={index} className="main-cart-item">
                                         <div className="main-cart-item-Details">
-                                            <p className="main-cart-item-brand bold-700">{item.brand}</p>
-                                            <p className="main-cart-item-name regular-400">{item.name}</p>
+                                            <p className="main-cart-item-brand semibold-600">{item.brand}</p>
+                                            <p className="main-cart-item-name light-300">{item.name}</p>
                                             <p className="main-cart-item-price bold-700">{`${symbol}${amount}`}</p>
 
                                             {
@@ -108,7 +108,7 @@ class CartItems extends Component {
                                                             <p style={{ color: "black", margin: "0 0 5px 0", fontWeight: "bold", fontFamily: "sans-serif" }}>{attr.name.toUpperCase()}:</p>
                                                             <div className="attributes-attribute">
                                                                 {attr.items.map((item, index) => {
-                                                                    return (<div key={index} className={item.selected ? "attribute-value-selected" : "attribute-value"}>{item.value}</div>)
+                                                                    return (<div key={index} className={item.selected ? "attribute-value-selected regular-400" : "attribute-value regular-400"}>{item.value}</div>)
                                                                 })}
                                                             </div>
                                                         </div>)
