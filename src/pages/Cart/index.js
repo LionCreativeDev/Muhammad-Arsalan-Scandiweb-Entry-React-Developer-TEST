@@ -47,7 +47,7 @@ class Cart extends Component {
                 {/* <Header /> */}
                 {/* <div style={{ position: "relative", display: "block", paddingBottom: "100px" }}>
                     <div className="container"> */}
-                <div style={{ position: "relative", display: "block"}}>
+                <div style={{ position: "relative", display: "block", height: "100%"}}>
                     <div className="container" style={{ height: "100%" }}>
                         <PageHeading text={"CART"} />
                         <CartItems />

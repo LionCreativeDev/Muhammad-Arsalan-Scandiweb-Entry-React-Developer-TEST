@@ -119,7 +119,7 @@ class ProductDetails extends Component {
                 {/* <Header /> */}
                 {/* <div style={{ position: "relative", display: "block" }}>
                     <div className="container"> */}
-                <div style={{ position: "relative", display: "block", height: "84.2%" }}>
+                <div style={{ position: "relative", display: "block", height: "100%" }}>
                     <div className="container" style={{ height: "100%" }}>
                         <div className="row">
                             <ProductImages images={product.gallery} name={product.name} />
