@@ -26,7 +26,7 @@ const defaultHandler = (state, action) => {
         case "REMOVE_FROM_CART":
             return ({
                 ...state,
-                cart: [...state.cart.filter(item => item.uniqueItemID !== action.data)]
+                cart: [...state.cart.filter(item => item.uniqueItemID !== action.data.uniqueItemID)]
             });
         case "CLEAR_CART":
             return ({

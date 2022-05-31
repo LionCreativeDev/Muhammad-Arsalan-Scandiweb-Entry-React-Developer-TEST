@@ -15,7 +15,7 @@ class Cart extends Component {
         setTimeout(() => {
             let cart = this.props.cart;
             let cartItems = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : [];
-            if (cart !== cartItems) {
+            if (cart !== cartItems && cartItems.length > cart.length) {
                 cartItems.forEach(cartItem => {
                     if (!cart.some(item => item.uniqueItemID === cartItem.uniqueItemID))
                         this.props.addToCart(cartItem);
@@ -25,6 +25,12 @@ class Cart extends Component {
                         this.props.updateCart(cart[index]);
                     }
                 });
+            }
+            else if (cart !== cartItems && cartItems.length < cart.length) {
+                cart.forEach(cartItem => {
+                    if (!cartItems.some(item => item.uniqueItemID === cartItem.uniqueItemID))
+                        this.props.removeFromCart(cartItem);
+                })
             }
         }, 100)
     }

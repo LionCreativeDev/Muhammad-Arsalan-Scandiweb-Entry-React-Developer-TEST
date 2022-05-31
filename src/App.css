@@ -196,6 +196,10 @@ a:not([href]):not([class]):hover {
   margin-left: auto;
 }
 
+header{
+  background-color: white;
+}
+
 nav {
   display: flex;
   justify-content: space-between;

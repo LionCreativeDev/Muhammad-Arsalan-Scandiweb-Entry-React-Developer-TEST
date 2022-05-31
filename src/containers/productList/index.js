@@ -72,12 +72,12 @@ class ProductList extends Component {
                                     {inStock && (
                                         <>
                                             <div className='product-badge'>
-                                                <svg className="badge-icon" width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="#ffffff" stroke-width="2" >
+                                                <svg className="badge-icon" width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="#ffffff" strokeWidth="2" >
                                                     <path xmlns="http://www.w3.org/2000/svg" d="M 16.949219 1.914062 L 7.925781 11.082031 L 3.957031 7.230469 L 0 11.3125 L 8.019531 19.085938 L 21 5.898438 Z M 8 17.238281 L 1.855469 11.285156 L 3.984375 9.085938 L 7.949219 12.929688 L 16.964844 3.765625 L 19.144531 5.914062 Z M 8 17.238281 " />
                                                 </svg>
                                                 <span className='badge-label semibold-600'></span>
                                             </div>
-                                            <svg className="like" title="Like Heart SVG File" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <svg className="like" title="Like Heart SVG File" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                             </svg>
                                         </>

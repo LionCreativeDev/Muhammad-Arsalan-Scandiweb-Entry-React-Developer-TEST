@@ -23,6 +23,12 @@ const addToCart = (cartItem) =>{
     }
 }
 
+const removeFromCart = (cartItem) =>{
+    return (dispatch) =>{
+        dispatch({ type: "REMOVE_FROM_CART", data: cartItem });
+    }
+}
+
 const updateCart = (cartItem) =>{
     return (dispatch) =>{
         dispatch({ type: "UPDATE_CART", data: cartItem });
@@ -57,6 +63,7 @@ export {
     setSelectedCategory,
     setSelectedCurrency,
     addToCart,
+    removeFromCart,
     updateCart,
     showSnackBar,
     hideSnackBar,

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import "./main-cart.css"
 
 import { connect } from "react-redux";//to connect with redux store
-import { updateCart, showSnackBar } from "../../store/action";
+import { removeFromCart, updateCart, showSnackBar } from "../../store/action";
 import ImageGallery from '../imagegalley';
 
 let cartSummery = { totalItems: 0, totalQuantity: 0, totalPrice: 0, taxPercentage: 21, taxAmount: 0, grandTotal: 0 };
@@ -44,6 +44,17 @@ class CartItems extends Component {
                 this.props.updateCart(tempitem);
             }
         }
+    }
+    removeItem(item){
+        this.props.removeFromCart(item);
+        this.calculateTotal(this.props.cart);
+
+        let temp = [...this.props.cart.filter(i => i.uniqueItemID !== item.uniqueItemID)];
+        //console.log("temp", temp);
+        const serializedState = JSON.stringify(temp);
+        localStorage.setItem("cart", serializedState);
+
+        this.props.showSnackBar({ open: true, message: "Item removed from cart!", variant: "success" });
     }
     calculateTotal(cart) {
         var totalItems = cart.length;
@@ -124,13 +135,21 @@ class CartItems extends Component {
                                                 <div className="main-cart-counter-control-minus regular-400" onClick={() => { this.handleQuantity("minus", item) }}>-</div>
                                             </div>
                                             <ImageGallery item={item} />
+                                            <div style={{position: "absolute", right: "15px"}} onClick={()=>{this.removeItem(item)}}>
+                                                <svg className="badge-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#000000" strokeWidth="2" >
+                                                    <g id="surface1">
+                                                        <path d="M 18.946429 17.151786 L 45.044643 43.053571 " transform="matrix(0.4375,0,0,0.4375,0,0)" />
+                                                        <path d="M 19.044643 43.151786 L 44.946429 17.053571 " transform="matrix(0.4375,0,0,0.4375,0,0)" />
+                                                    </g>
+                                                </svg>
+                                            </div>
                                         </div>
                                     </div>)
                                 })
                             }
                         </div>)
                         :
-                        (<div style={{textAlign: "center", padding: "5px", fontSize: "24px", marginBottom: "20px"}}>Cart is empty</div>)
+                        (<div style={{ textAlign: "center", padding: "5px", fontSize: "24px", marginBottom: "20px" }}>Cart is empty</div>)
                     }
 
                     <div className="main-cart-total">
@@ -161,6 +180,7 @@ const mapStateToProp = (state) => ({
     snackbar: state.snackbar
 })
 const mapDispatchToProp = (dispatch) => ({
+    removeFromCart: (cartItem) => dispatch(removeFromCart(cartItem)),
     updateCart: (cartItem) => dispatch(updateCart(cartItem)),
     showSnackBar: (snackbar) => dispatch(showSnackBar(snackbar))
 })
