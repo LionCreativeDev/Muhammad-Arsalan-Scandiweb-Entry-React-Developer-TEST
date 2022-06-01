@@ -14,7 +14,7 @@ class Header extends Component {
                     <nav>
                         <Categories />
                         <Logo />
-                        <ul>
+                        <ul className='right'>
                             <Currencies />
                             <MiniCart />
                         </ul>

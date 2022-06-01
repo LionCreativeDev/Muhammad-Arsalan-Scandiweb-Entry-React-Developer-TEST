@@ -202,11 +202,29 @@ header {
 
 nav {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   /* padding: 20px 50px; */
   padding: 0px 35px;
   height: 80px;
   align-items: center;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  justify-content: start;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: end;
 }
 
 nav ul>li {
@@ -274,10 +292,12 @@ nav ul li .menu-item:hover {
   align-items: center;
   /* background-color: #04AA6D; */
   color: black;
-  padding: 16px;
+  /* padding: 16px; */
+  padding: 16px 0px 16px 0px;
   /* font-size: 16px; */
   border: none;
-  width: 67px;
+  /* width: 67px; */
+  width: 50px;
 }
 
 .currency-dropdown {
@@ -495,12 +515,16 @@ nav ul li .menu-item:hover {
   }
 
   .mobile {
-    display: block!important;
+    display: block !important;
   }
 
   .mobile li {
     padding: 0;
     margin-left: -8px;
+  }
+
+  .currency-dropdown-content {
+    right: 0px !important;
   }
 }
 

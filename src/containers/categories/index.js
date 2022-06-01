@@ -34,6 +34,8 @@ class Categories extends Component {
             selectedCategory: "all",
             menuOpen: false
         }
+        this.ref = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
     fetchCategories() {
         client.query({
@@ -84,22 +86,29 @@ class Categories extends Component {
     handleMenu() {
         const { menuOpen } = this.state;
         if (!menuOpen) {
+            document.addEventListener('click', this.handleClickOutside, true);
             document.getElementsByClassName("menuitems")[0].style.display = "block";
             document.getElementsByClassName("loading")[0].style.display = "block";
             this.setState({ menuOpen: true });
         }
-        else{
+        else {
+            document.removeEventListener('click', this.handleClickOutside, true);
             document.getElementsByClassName("menuitems")[0].style.display = "none";
             document.getElementsByClassName("loading")[0].style.display = "none";
             this.setState({ menuOpen: false });
         }
     }
+    handleClickOutside(event) {
+        if (event.target.className.baseVal !== "menuButton") {
+            this.handleMenu();
+        }        
+    };
     render() {
         const AllCategories = this.state.Categories;
 
         return (
             <ApolloProvider client={client}>
-                <ul className="menu">
+                <ul className="menu left">
                     {AllCategories.map((category, index) => {
                         if (this.state.selectedCategory.toUpperCase() === category.name.toUpperCase())
                             return (<li className="active" key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item semibold-600">{category.name.toUpperCase()}</div></li>)
@@ -107,9 +116,9 @@ class Categories extends Component {
                             return (<li key={index} onClick={() => this.handleCategoryClick(category)}><div className="menu-item semibold-600">{category.name.toUpperCase()}</div></li>)
                     })}
                 </ul>
-                <ul className="mobile" style={{ display: "none" }}>
+                <ul className="mobile hide left">
                     <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={40} height={40} onClick={() => { this.handleMenu() }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width={40} height={40} className="menuButton" onClick={() => { this.handleMenu() }}>
                             <path style={{ fill: "none", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", stroke: "#000", strokeOpacity: 1, strokeMiterlimit: 10, }} d="M16.003 26.002h39.994M16.003 36h39.994M16.003 45.998h39.994" transform="scale(.55556)" />
                         </svg>
                     </li>
