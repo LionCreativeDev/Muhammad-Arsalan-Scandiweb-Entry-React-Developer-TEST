@@ -1,0 +1,36 @@
+.mobile li svg {    
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* .mobile li svg:hover, .mobile li svg:focus {
+    background-color: #2980B9;
+  } */
+  
+  .mobile li {
+    /* position: relative; */
+    display: inline-block;
+  }
+  
+  .menuitems {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    background-color: #ffffff;
+    min-width: 250px;
+    height: 100%;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .menuitems li {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    padding-left: 45px;
+  }
+  
+  .dropdown a:hover {background-color: #ddd;}

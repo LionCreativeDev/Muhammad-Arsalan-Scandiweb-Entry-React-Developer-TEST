@@ -83,7 +83,7 @@ class ProductList extends Component {
                                         </>
                                     )}
 
-                                    <img src={gallery[0]} alt={`${name}`} style={{ width: "100%", height: "21.5vw", objectFit: "contain" }} />
+                                    <img src={gallery[0]} alt={`${name}`} style={{ width: "100%", height: "43.48vh", maxHeight: "480px", objectFit: "contain" }} />
                                     <div className="addtocart" onClick={() => { this.handleAddToCart(thisproduct) }}>
                                         <svg className="cart" version="1.0" xmlns="http://www.w3.org/2000/svg" width="24.000000pt" height="24.000000pt" viewBox="0 0 24.000000 24.000000" preserveAspectRatio="xMidYMid meet">
                                             <g transform="translate(0.000000,24.000000) scale(0.100000,-0.100000)" fill="#FFFFFF" stroke="none">

@@ -196,7 +196,7 @@ a:not([href]):not([class]):hover {
   margin-left: auto;
 }
 
-header{
+header {
   background-color: white;
 }
 
@@ -424,7 +424,7 @@ nav ul li .menu-item:hover {
   }
 }
 
-@media (min-width: 576px) {
+@media screen and (max-width: 576px) {
   .col-sm-1 {
     flex: 0 0 auto;
     width: 8.33333333%;
@@ -483,6 +483,24 @@ nav ul li .menu-item:hover {
   .col-sm-12 {
     flex: 0 0 auto;
     width: 100%;
+  }
+
+  nav ul {
+    width: 33.33333333%;
+    display: flex;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .mobile {
+    display: block!important;
+  }
+
+  .mobile li {
+    padding: 0;
+    margin-left: -8px;
   }
 }
 
