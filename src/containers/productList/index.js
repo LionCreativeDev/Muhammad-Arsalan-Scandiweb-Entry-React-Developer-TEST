@@ -35,7 +35,10 @@ class ProductList extends Component {
         }
     }
     moveToProductDetails(event, { inStock, id }) {
-        if (event.target.className !== "addtocart" && ["svg", "g", "path"].indexOf(event.target.tagName) === -1 && inStock)
+        // if (event.target.className !== "addtocart" && ["svg", "g", "path"].indexOf(event.target.tagName) === -1 && inStock)
+        //     this.props.navigate(`/productdetail/${id}`);
+
+        if (event.target.className !== "addtocart" && ["svg", "g", "path"].indexOf(event.target.tagName) === -1)
             this.props.navigate(`/productdetail/${id}`);
     }
     handleAddToCart(thisproduct) {

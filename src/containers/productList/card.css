@@ -113,7 +113,8 @@
     /* opacity: 0.5;
     background-color: #ddd; */
     opacity: 0.6;
-    background-color: #eee;
+    /* background-color: #eee; */
+    background-color: #C4C4C4;
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -125,7 +126,8 @@
 }
 
 .overlay-text {
-    color: #00000099;
+    /* color: #00000099; */
+    color: #8D8F9A;
     font-size: 20px;
 }
 
